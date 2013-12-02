@@ -1,4 +1,6 @@
 
+import javax.swing.*;
+
 public class Game {
 	public static void main(String args[]){
 		System.out.println("assaf");
@@ -7,6 +9,5 @@ public class Game {
 	}
 
 	private static void coolFunction() {
-		
 	}
 }
