@@ -41,7 +41,10 @@ public class Level extends JPanel implements ActionListener {
     public void initGame() {
     	//initializera
     	world = new World();
-    	PhysicsObject physObj = new PhysicsObject();
+    	
+    	PhysicsFixture fixture = new CircleFixture(5f);
+    	
+    	PhysicsObject physObj = new PhysicsObject(fixture);
     	
     	world.addObject(physObj);
     	

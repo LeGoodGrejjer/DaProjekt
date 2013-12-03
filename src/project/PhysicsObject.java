@@ -7,7 +7,7 @@ public class PhysicsObject
 {
 	private AABB aabb;
 	private Set<PhysicsFixture> fixtures = new HashSet<PhysicsFixture>();
-	void PhysicsObject(PhysicsFixture fixture)
+	public PhysicsObject(PhysicsFixture fixture)
 	{
 		fixtures.add(fixture);
 		aabb = generateAABB();
@@ -18,6 +18,6 @@ public class PhysicsObject
 	}
 	void update()
 	{
-		aabb.collision(new AABB());
+		aabb.collision(null);
 	}
 }

@@ -2,9 +2,12 @@ package project;
 
 public class AABB
 {
-	public boolean collision(AABB other)
+	public AABB()
 	{
 		
+	}
+	boolean collision(AABB other)
+	{
 		return false;
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Set;
 public class World
 {
 	Set<PhysicsObject> physicsObjects = new HashSet<PhysicsObject>();
-	void World()
+	public World()
 	{
 		
 	}
