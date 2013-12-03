@@ -8,6 +8,7 @@ public class PhysicsObject
 {
 	Vector2 position;
 	private AABB aabb;
+	String name;
 	private Set<PhysicsFixture> fixtures = new HashSet<PhysicsFixture>();
 	public AABB getAABB()
 	{
@@ -31,5 +32,6 @@ public class PhysicsObject
 			fixture.debugDraw(g, position);
 			aabb.debugDraw(g);
 		}
+		
 	}
 }

@@ -9,33 +9,43 @@ public class World
 {
 	Set<PhysicsObject> physicsObjects;// = new HashSet<PhysicsObject>();
 	private Iterator<PhysicsObject> it;
-	private PhysicsObject prev;
 	private PhysicsObject current;
+	Collisions AABBCollisions = new Collisions();
+	
+	
+	
 	public World()
 	{
 		physicsObjects = new HashSet<PhysicsObject>();
 	}
 	void update()
 	{
-		it = physicsObjects.iterator();
-		while(it.hasNext())
+		int i = 0;
+		for(PhysicsObject prev : physicsObjects)
 		{
-			prev = it.next();
-			
-			if(it.hasNext())
-				current = it.next();
-			else 
-				break;
-			if(current.getAABB().colliding(prev.getAABB()))
+			it = physicsObjects.iterator();
+			while(it.hasNext())
 			{
-				System.out.println(current.toString() + "      COLLIDING AABB WITH     " + prev.toString());
+				current = it.next();
+				if(prev.equals(current))
+					continue;
+
+				if(current.getAABB().colliding(prev.getAABB()))
+				{
+					AABBCollisions.add(new Pair<PhysicsObject>(current, prev));
+					i++;
+				}
 			}
 		}
+		System.out.println(i + " collisions.");
 		it = physicsObjects.iterator();
 		while(it.hasNext())
 		{
 			it.next().update();
+			AABBCollisions.removeEndedCollisions();
+			
 		}
+		AABBCollisions.debugDraw();
 	}
 	void addObject(PhysicsObject obj)
 	{
