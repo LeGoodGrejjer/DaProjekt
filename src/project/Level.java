@@ -18,12 +18,15 @@ import javax.swing.Timer;
 
 public class Level extends JPanel implements ActionListener {
 
-    private final int DELAY = 140;
+    private final int DELAY = (int)(1f/60f);
 
     private Timer timer;
     
     private boolean inGame = true;
     private World world;
+    
+    PhysicsObject physObj;
+    static Vector2 translation = Vector2.zero();
     //private Image ball;
     public Level() {
         addKeyListener(new TAdapter());
@@ -42,11 +45,16 @@ public class Level extends JPanel implements ActionListener {
     	//initializera
     	world = new World();
     	
-    	PhysicsFixture fixture = new CircleFixture(5f);
-    	
-    	PhysicsObject physObj = new PhysicsObject(fixture, new Vector2(1f, 1f));
+    	PhysicsFixture fixture = new CircleFixture(25f);
+    	physObj = new PhysicsObject(fixture, new Vector2(100f, 100f));
     	
     	world.addObject(physObj);
+    	
+    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(120f, 120f));
+    	
+    	world.addObject(physObj2);
+    	
+    	
     	
         timer = new Timer(DELAY, this);
         timer.start();
@@ -58,7 +66,7 @@ public class Level extends JPanel implements ActionListener {
 
         if (inGame) {
 
-            //g.drawImage(apple, apple_x, apple_y, this);
+            world.debugDraw(g);
 
             Toolkit.getDefaultToolkit().sync();
             g.dispose();
@@ -82,6 +90,7 @@ public class Level extends JPanel implements ActionListener {
 
     public void update()
     {
+    	physObj.position.translate(translation);
     	world.update();
     }
     public void actionPerformed(ActionEvent e) {
@@ -98,8 +107,46 @@ public class Level extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
 
             int key = e.getKeyCode();
+            
+            if(key == KeyEvent.VK_LEFT)
+            {
+            	translation.x = -1f/60f * 5f;
+            }
+            if(key == KeyEvent.VK_RIGHT)
+            {
+            	translation.x = 1f/60f * 5f;
+            }
+            if(key == KeyEvent.VK_UP)
+            {
+            	translation.y = -1f/60f * 5f;
+            }
+            if(key == KeyEvent.VK_DOWN)
+            {
+            	translation.y = 1f/60f * 5f;
+            }
 
-            //if ((key == KeyEvent.VK_LEFT))
+        }
+        public void keyReleased(KeyEvent e) {
+        	
+        	int key = e.getKeyCode();
+        	
+        	if(key == KeyEvent.VK_LEFT)
+            {
+            	translation.x = 0;
+            }
+            if(key == KeyEvent.VK_RIGHT)
+            {
+            	translation.x = 0;
+            }
+            if(key == KeyEvent.VK_UP)
+            {
+            	translation.y = 0;
+            }
+            if(key == KeyEvent.VK_DOWN)
+            {
+            	translation.y = 0;
+            }
+            	
         }
     }
 }

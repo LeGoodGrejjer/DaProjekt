@@ -1,5 +1,7 @@
 package project;
 
+import java.awt.Graphics;
+
 public class PolygonFixture extends PhysicsFixture
 {
 	private Vector2[] verts;
@@ -11,8 +13,12 @@ public class PolygonFixture extends PhysicsFixture
 	{
 		return verts;
 	}
-	public void debugDraw() 
+	public void debugDraw(Graphics g, Vector2 position) 
 	{
 		
+	}
+	public AABB generateAABB() 
+	{
+		return new AABB();
 	}
 }

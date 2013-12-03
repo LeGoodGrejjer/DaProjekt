@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,15 +16,20 @@ public class PhysicsObject
 	public PhysicsObject(PhysicsFixture fixture, Vector2 position)
 	{
 		fixtures.add(fixture);
-		aabb = generateAABB();
+		aabb = fixture.generateAABB();
+		aabb.setPosition(position);
 		this.position = position;
 	}
-	private AABB generateAABB()
-	{
-		return new AABB();
-	}
-	void update(PhysicsFixture fixture)
+	void update()
 	{
 		aabb.setPosition(position);
+	}
+	void debugDraw(Graphics g)
+	{
+		for(PhysicsFixture fixture : fixtures)
+		{
+			fixture.debugDraw(g, position);
+			aabb.debugDraw(g);
+		}
 	}
 }
