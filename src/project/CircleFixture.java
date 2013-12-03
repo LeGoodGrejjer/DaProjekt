@@ -11,4 +11,8 @@ public class CircleFixture extends PhysicsFixture
 	{
 		return radius;
 	}
+	public void debugDraw() 
+	{
+		
+	}
 }
