@@ -54,14 +54,12 @@ public class Collisions
 					{
 						Vector2 p1 = Vector2.add(collision.getElement1().position, fixture1.getLocalPosition());
 						Vector2 p2 = Vector2.add(collision.getElement2().position, fixture2.getLocalPosition());
-						Vector2 deltaP = Vector2.delta(p1, p2);
-						//System.out.println(deltaP.x);
-						//System.out.println(deltaP.y);
+						
 						float dist = Vector2.distance(p1, p2);
 						float overlap = ((CircleFixture)fixture1).getRadius() + ((CircleFixture)fixture2).getRadius();
 						if(dist < overlap)
 						{
-							
+							Vector2 deltaP = Vector2.delta(p1, p2);
 //							collision.getElement1().position = 
 //									Vector2.add(collision.getElement1().position,
 //											Vector2.multiply(deltaP.normalize(), dist / overlap));
@@ -69,8 +67,8 @@ public class Collisions
 //							collision.getElement2().position = 
 //									Vector2.add(collision.getElement2().position,
 //											Vector2.multiply(deltaP.normalize(), -dist / overlap));
-							collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/600f));
-							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/600f));
+							collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/1000f));
+							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/1000f));
 						}
 					}
 				}
