@@ -1,20 +1,23 @@
 package project;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Game extends JFrame implements MouseListener, MouseMotionListener{
+public class Game extends JFrame{
 	
 	private ArrayList<Vector2> pointsArr = new ArrayList<Vector2>();
+	private Level level = new Level();
 	
 	 public Game() {
 		
-		 Level level = new Level();
+		 
 		 	add(level);
 
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,8 +30,25 @@ public class Game extends JFrame implements MouseListener, MouseMotionListener{
 	        pack();
 	        
 	        
-	        level.addMouseMotionListener(new MouseDraw());
-	        level.addMouseListener(new MouseDraw());
+	        level.addMouseMotionListener(new MouseMotionListener() {
+				
+				@Override
+				public void mouseMoved(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+				}
+				
+				@Override
+				public void mouseDragged(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("("+arg0.getY()+", "+arg0.getX()+")");
+					
+					JLabel lab = new JLabel("O");
+					lab.setBounds(arg0.getX(), arg0.getY(), 5, 5);
+					lab.setBackground(Color.red);
+					level.add(lab);
+					lab.setVisible(true);
+				}
+			});
 	      
 	        
 	        //setSize(600, 600);
@@ -40,53 +60,4 @@ public class Game extends JFrame implements MouseListener, MouseMotionListener{
 	    public static void main(String[] args) {
 	        new Game();
 	    }
-
-		@Override
-		public void mouseDragged(MouseEvent e) {
-			pointsArr.add(new Vector2(e.getX(), e.getY()));
-			
-			
-			PhysicsFixture fixture = new CircleFixture(25f);
-	    	physObj = new PhysicsObject(fixture, new Vector2(100f, 300f));
-	    	physObj.name = "Player";
-	    	
-	    	world.addObject(physObj);
-		}
-		
-
-		@Override
-		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
 }
