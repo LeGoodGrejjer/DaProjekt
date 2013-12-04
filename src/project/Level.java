@@ -59,15 +59,16 @@ public class Level extends JPanel implements ActionListener {
     	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(120f, 120f));
     	physObj2.name = "Övre";
     	
-    	//world.addObject(physObj2);
+    	world.addObject(physObj2);
     	
-    	fixture = new CircleFixture(40f);
+    	fixture = new CircleFixture(30f);
     	
     	physObj2 = new PhysicsObject(fixture, new Vector2(150f, 150f));
     	
     	physObj2.name = "Nedre";
     	world.addObject(physObj2);
     	
+    	world.addObject(new PhysicsObject(new CircleFixture(50f), new Vector2(150f, 150f)));
     	
         timer = new Timer(DELAY, this);
         timer.start();

@@ -55,8 +55,8 @@ public class Collisions
 						Vector2 p1 = Vector2.add(collision.getElement1().position, fixture1.getLocalPosition());
 						Vector2 p2 = Vector2.add(collision.getElement2().position, fixture2.getLocalPosition());
 						Vector2 deltaP = Vector2.delta(p1, p2);
-						System.out.println(deltaP.x);
-						System.out.println(deltaP.y);
+						//System.out.println(deltaP.x);
+						//System.out.println(deltaP.y);
 						float dist = Vector2.distance(p1, p2);
 						float overlap = ((CircleFixture)fixture1).getRadius() + ((CircleFixture)fixture2).getRadius();
 						if(dist < overlap)
