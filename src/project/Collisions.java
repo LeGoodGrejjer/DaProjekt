@@ -40,4 +40,36 @@ public class Collisions
 		}
 		System.out.print('\n');
 	}
+	public void solveCollisions()
+	{
+		Iterator<Pair<PhysicsObject>> it = collisions.iterator();
+		while(it.hasNext())
+		{
+			Pair<PhysicsObject> collision = it.next();
+			for(PhysicsFixture fixture1 : collision.getElement1().getFixtures())
+			{
+				for(PhysicsFixture fixture2 : collision.getElement2().getFixtures())
+				{
+					if(fixture1 instanceof CircleFixture && fixture2 instanceof CircleFixture)
+					{
+						Vector2 p1 = Vector2.add(collision.getElement1().position, fixture1.getLocalPosition());
+						Vector2 p2 = Vector2.add(collision.getElement2().position, fixture2.getLocalPosition());
+						float dist = Vector2.distance(p1, p2);
+						float overlap = ((CircleFixture)fixture1).getRadius() + ((CircleFixture)fixture2).getRadius();
+						if(dist < overlap)
+						{
+							System.out.println("actuallycolling");
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
+
+
+
+
+
+

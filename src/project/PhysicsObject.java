@@ -34,4 +34,8 @@ public class PhysicsObject
 		}
 		
 	}
+	public Set<PhysicsFixture> getFixtures()
+	{
+		return fixtures;
+	}
 }

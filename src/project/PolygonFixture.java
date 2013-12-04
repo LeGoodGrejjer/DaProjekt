@@ -5,9 +5,11 @@ import java.awt.Graphics;
 public class PolygonFixture extends PhysicsFixture
 {
 	private Vector2[] verts;
+	private Vector2 localPosition;
 	public PolygonFixture(Vector2[] verts)
 	{
 		this.verts = verts;
+		localPosition = Vector2.zero();
 	}
 	public Vector2[] getVerices()
 	{
@@ -23,5 +25,9 @@ public class PolygonFixture extends PhysicsFixture
 	public AABB generateAABB() 
 	{
 		return new AABB();
+	}
+	public Vector2 getLocalPosition() 
+	{
+		return localPosition;
 	}
 }

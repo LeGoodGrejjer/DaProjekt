@@ -5,9 +5,11 @@ import java.awt.Graphics;
 public class CircleFixture extends PhysicsFixture 
 {
 	private float radius;
+	private Vector2 localPosition;
 	public CircleFixture(float r)
 	{
 		radius = r;
+		localPosition = Vector2.zero();
 	}
 	float getRadius()
 	{
@@ -21,5 +23,9 @@ public class CircleFixture extends PhysicsFixture
 	public AABB generateAABB() 
 	{
 		return new AABB(new Vector2(radius * 2, radius * 2));
+	}
+	public Vector2 getLocalPosition()
+	{
+		return localPosition;
 	}
 }

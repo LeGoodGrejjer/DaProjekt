@@ -12,8 +12,6 @@ public class World
 	private PhysicsObject current;
 	Collisions AABBCollisions = new Collisions();
 	
-	
-	
 	public World()
 	{
 		physicsObjects = new HashSet<PhysicsObject>();
@@ -43,7 +41,7 @@ public class World
 		{
 			it.next().update();
 			AABBCollisions.removeEndedCollisions();
-			
+			AABBCollisions.solveCollisions();
 		}
 		AABBCollisions.debugDraw();
 	}
