@@ -104,7 +104,7 @@ public class Level extends JPanel implements ActionListener {
 
     public void update()
     {
-    	physObj.position.translate(translation);
+    	physObj.addForce(translation);
     	world.update();
     }
     public void actionPerformed(ActionEvent e) {
@@ -124,19 +124,19 @@ public class Level extends JPanel implements ActionListener {
             
             if(key == KeyEvent.VK_LEFT)
             {
-            	translation.x = -1f/60f * 5f;
+            	translation.x = -1f/600f;
             }
             if(key == KeyEvent.VK_RIGHT)
             {
-            	translation.x = 1f/60f * 5f;
+            	translation.x = 1f/600f;
             }
             if(key == KeyEvent.VK_UP)
             {
-            	translation.y = -1f/60f * 5f;
+            	translation.y = -1f/600f;
             }
             if(key == KeyEvent.VK_DOWN)
             {
-            	translation.y = 1f/60f * 5f;
+            	translation.y = 1f/600f;
             }
 
         }
