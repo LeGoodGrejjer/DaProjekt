@@ -68,7 +68,8 @@ public class Level extends JPanel implements ActionListener {
     	physObj2.name = "Nedre";
     	world.addObject(physObj2);
     	
-    	world.addObject(new PhysicsObject(new CircleFixture(50f), new Vector2(200f, 200f)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(-40, -25), new Vector2(40, -5), new Vector2(0, 40), new Vector2(-50, 60)}),
+    			new Vector2(200f, 200f)));
     	
         timer = new Timer(DELAY, this);
         timer.start();
