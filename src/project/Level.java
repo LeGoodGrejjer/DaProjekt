@@ -31,7 +31,7 @@ public class Level extends JPanel implements ActionListener {
     public Level() {
         addKeyListener(new TAdapter());
 
-        setBackground(Color.black);
+        setBackground(Color.white);
 
         //ImageIcon iid = new ImageIcon(this.getClass().getResource("dot.png"));
         //ball = iid.getImage();
@@ -57,7 +57,7 @@ public class Level extends JPanel implements ActionListener {
     	fixture = new CircleFixture(40f);
     	
     	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(320f, 320f));
-    	physObj2.name = "Övre";
+    	physObj2.name = "ï¿½vre";
     	
     	world.addObject(physObj2);
     	
