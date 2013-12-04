@@ -6,8 +6,9 @@ import javax.swing.*;
 
 public class Game extends JFrame{
 	 public Game() {
-		 
-		 	add(new Level());
+		
+		 Level level = new Level();
+		 	add(level);
 
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        
@@ -17,8 +18,13 @@ public class Game extends JFrame{
 	        setResizable(false);
 	        setPreferredSize(new Dimension(600, 600));
 	        pack();
+	        
+	        level.addMouseListener(new MouseDraw());
+	      
+	        
 	        //setSize(600, 600);
-	        //jhsfs
+	       
+	        
 	        setVisible(true);
 	    }
 

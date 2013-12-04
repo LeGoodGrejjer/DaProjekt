@@ -35,7 +35,7 @@ public class World
 				}
 			}
 		}
-		System.out.println(i + " collisions.");
+		//System.out.println(i + " collisions.");
 		it = physicsObjects.iterator();
 		while(it.hasNext())
 		{

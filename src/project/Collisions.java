@@ -38,7 +38,7 @@ public class Collisions
 		{
 			System.out.println(pair.getElement1().name + " collidiong with " + pair.getElement2().name);
 		}
-		System.out.print('\n');
+		//System.out.print('\n');
 	}
 	public void solveCollisions()
 	{
