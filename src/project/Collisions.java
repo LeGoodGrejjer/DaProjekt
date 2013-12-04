@@ -62,13 +62,15 @@ public class Collisions
 						if(dist < overlap)
 						{
 							
-							collision.getElement1().position = 
-									Vector2.add(collision.getElement1().position,
-											Vector2.multiply(deltaP.normalize(), dist / overlap));
-							
-							collision.getElement2().position = 
-									Vector2.add(collision.getElement2().position,
-											Vector2.multiply(deltaP.normalize(), -dist / overlap));
+//							collision.getElement1().position = 
+//									Vector2.add(collision.getElement1().position,
+//											Vector2.multiply(deltaP.normalize(), dist / overlap));
+//							
+//							collision.getElement2().position = 
+//									Vector2.add(collision.getElement2().position,
+//											Vector2.multiply(deltaP.normalize(), -dist / overlap));
+							collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/600f));
+							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/600f));
 						}
 					}
 				}
