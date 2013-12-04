@@ -53,11 +53,11 @@ public class Vector2
 	}
 	public Vector2 normalize()
 	{
-		float x = this.x, y = this.y;
-		float len_v = (float)Math.sqrt(x * x + y * y);
-		x /= len_v;
-		y /= len_v;
-		return new Vector2(x, y);
+		float a = this.x, b = this.y;
+		float len_v = (float)Math.sqrt(a * a + b * b);
+		a /= len_v;
+		b /= len_v;
+		return new Vector2(a, b);
 	}
 	public static Vector2 delta(Vector2 v1, Vector2 v2)
 	{
@@ -131,5 +131,9 @@ public class Vector2
 		}
 		
 		return Vector2.absDelta(largest, smallest);
+	}
+	public Vector2 leftNormal()
+	{
+		return (new Vector2(this.y, -this.x)).normalize();
 	}
 }

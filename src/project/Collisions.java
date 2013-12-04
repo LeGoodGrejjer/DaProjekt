@@ -1,5 +1,7 @@
 package project;
 
+import java.awt.Graphics;
+import java.io.ObjectInputStream.GetField;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -40,7 +42,7 @@ public class Collisions
 		}
 		System.out.print('\n');
 	}
-	public void solveCollisions()
+	public void solveCollisions(Graphics g)
 	{
 		Iterator<Pair<PhysicsObject>> it = collisions.iterator();
 		while(it.hasNext())
@@ -73,20 +75,44 @@ public class Collisions
 					}
 					else if(fixture1 instanceof CircleFixture && fixture2 instanceof PolygonFixture)
 					{
-						circlePolyCollision(collision.getElement1(), collision.getElement2(), fixture1, fixture2);
+						circlePolyCollision(g, collision.getElement1(), collision.getElement2(), (CircleFixture)fixture1, (PolygonFixture)fixture2);
 					}
 					else if(fixture1 instanceof PolygonFixture && fixture2 instanceof CircleFixture)
 					{
-						circlePolyCollision(collision.getElement2(), collision.getElement1(), fixture2, fixture1);
+						circlePolyCollision(g, collision.getElement2(), collision.getElement1(), (CircleFixture)fixture2, (PolygonFixture)fixture1);
 					}
 				}
 			}
 		}
 	}
-	private void circlePolyCollision(PhysicsObject circleObject, PhysicsObject polyObject, 
-			PhysicsFixture circleFixture, PhysicsFixture polyFixture)
+	private void circlePolyCollision(Graphics g, PhysicsObject circleObject, PhysicsObject polyObject, 
+			CircleFixture circleFixture, PolygonFixture polyFixture)
 	{
-		
+		Vector2[] verts = polyFixture.getVerices();
+		for(int i = 0; i < verts.length; i++)
+		{
+			//COMPAIR POINT
+			Vector2 p1p2 = Vector2.delta(verts[1], verts[0]);
+			g.drawLine((int)verts[0].x, (int)verts[0].y, (int)(verts[1].x), (int)(verts[1].y));
+			Vector2 p1p0 = Vector2.delta(circleObject.position, Vector2.add(verts[0], polyObject.position));
+			g.drawLine((int)circleObject.position.x, (int)circleObject.position.y, 
+					(int)(verts[0].x + polyObject.position.x), (int)(verts[0].y + polyObject.position.y));
+			Vector2 vertPos = new Vector2(verts[0].x + polyObject.position.x, verts[0].y + polyObject.position.y);
+			Vector2 Cprojected = Vector2.add(Vector2.project(p1p0, p1p2), vertPos);
+			g.drawLine((int)circleObject.position.x, (int)circleObject.position.y, 
+					(int)(Cprojected.x), (int)(Cprojected.y));
+			
+			//float dist = Vector2.distance(Vector2.add(Cprojected, verts[0]) , circleObject.position);
+			float dist = Vector2.distance(Cprojected, circleObject.position);
+			System.out.println(dist);
+			
+			
+			//FORCE DIR
+			if(dist < circleFixture.getRadius())
+			{
+				circleObject.addForce(Vector2.multiply(Cprojected.leftNormal().normalize(), 1f/1000f));
+			}
+		}
 	}
 }
 

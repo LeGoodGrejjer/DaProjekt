@@ -41,7 +41,7 @@ public class World
 		{
 			it.next().update();
 			AABBCollisions.removeEndedCollisions();
-			AABBCollisions.solveCollisions();
+			//AABBCollisions.solveCollisions(g);
 		}
 		AABBCollisions.debugDraw();
 	}
@@ -55,5 +55,6 @@ public class World
 		{
 			physObj.debugDraw(g);
 		}
+		AABBCollisions.solveCollisions(g);
 	}
 }

@@ -40,7 +40,6 @@ public class Level extends JPanel implements ActionListener {
         initGame();
     }
 
-
     public void initGame() {
     	//initializera
     	world = new World();
@@ -71,14 +70,14 @@ public class Level extends JPanel implements ActionListener {
     	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(-40, -25), new Vector2(40, -5), new Vector2(0, 40), new Vector2(-50, 60)}),
     			new Vector2(200f, 200f)));
     	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(60, 25), new Vector2(40, 5), new Vector2(0, 40), new Vector2(50, 60)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(50, 60), new Vector2(0, 40), new Vector2(40, 5), new Vector2(60, 25)}),
     			new Vector2(400f, 400f)));
     	
         timer = new Timer(DELAY, this);
         timer.start();
     }
 
-
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 

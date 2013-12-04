@@ -31,12 +31,36 @@ public class PolygonFixture extends PhysicsFixture
 		
 		g.drawLine((int)verts[verts.length-1].x + (int)position.x, (int)verts[verts.length-1].y + (int)position.y, 
 				(int)p.x + (int)position.x, (int)p.y + (int)position.y);
+		
+		//Left NORMALS
+		for(int i = 1; i < verts.length; i++)
+		{
+			Vector2 line = Vector2.add(Vector2.add(verts[i], position), Vector2.add(verts[i-1], position));
+			Vector2 halfLine = Vector2.divide(line , 2f);
+			Vector2 line2Normal = Vector2.delta(Vector2.add(verts[i], position), Vector2.add(verts[i-1], position));
+			Vector2 normal = line2Normal.leftNormal();
+			
+			//System.out.println(normal.y);
+			
+			g.drawLine((int)halfLine.x, (int)halfLine.y,
+					(int)halfLine.x + (int)(normal.x * 15f), (int)halfLine.y + (int)(normal.y * 15f));
+		}
+		Vector2 line = Vector2.add(Vector2.add(verts[0], position), Vector2.add(verts[verts.length-1], position));
+		Vector2 halfLine = Vector2.divide(line , 2f);
+		Vector2 line2Normal = Vector2.delta(Vector2.add(verts[0], position), Vector2.add(verts[verts.length-1], position));
+		Vector2 normal = line2Normal.leftNormal();
+		
+		//System.out.println(normal.y);
+		
+		g.drawLine((int)halfLine.x, (int)halfLine.y,
+				(int)halfLine.x + (int)(normal.x * 15f), (int)halfLine.y + (int)(normal.y * 15f));
+		
 	}
 	public AABB generateAABB() 
 	{
 		Vector2 size = Vector2.AABBSize(verts);
 		Vector2 p = Vector2.middle(verts, localPosition);
-		System.out.println(p.x);
+		//System.out.println(p.x);
 		return new AABB(p, size);
 	}
 	public Vector2 getLocalPosition() 
