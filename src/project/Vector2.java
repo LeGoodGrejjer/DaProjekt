@@ -77,13 +77,32 @@ public class Vector2
 	}
 	public static Vector2 middle(Vector2[] vectors, Vector2 localPosition)
 	{
-		Vector2 sum = localPosition;
+		//Vector2 sum = localPosition;
+		//sum = Vector2.add(sum, vectors[i]);
+		//System.out.println(vectors.length);
+		Vector2 largest = vectors[0];
+		Vector2 smallest = vectors[0];
 		for(int i = 0; i < vectors.length; i++)
 		{
-			sum = Vector2.add(sum, vectors[i]);
+			if(vectors[i].x > largest.x)
+			{
+				largest = new Vector2(vectors[i].x, largest.y);
+			}
+			if(vectors[i].y > largest.y)
+			{
+				largest = new Vector2(largest.x, vectors[i].y);
+			}
+			
+			if(vectors[i].x < smallest.x)
+			{
+				smallest = new Vector2(vectors[i].x, smallest.y);
+			}
+			if(vectors[i].y < smallest.y)
+			{
+				smallest = new Vector2(smallest.x, vectors[i].y);
+			}
 		}
-		//System.out.println(vectors.length);
-		return Vector2.multiply(sum, 1f/vectors.length);
+		return new Vector2((largest.x + smallest.x) / 2f + localPosition.x, (largest.y + smallest.y) / 2f + localPosition.y);
 	}
 	public static Vector2 AABBSize(Vector2[] vectors)
 	{

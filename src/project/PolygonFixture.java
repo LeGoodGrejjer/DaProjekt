@@ -34,8 +34,8 @@ public class PolygonFixture extends PhysicsFixture
 	}
 	public AABB generateAABB() 
 	{
-		Vector2 p = Vector2.middle(verts, localPosition);
 		Vector2 size = Vector2.AABBSize(verts);
+		Vector2 p = Vector2.middle(verts, localPosition);
 		System.out.println(p.x);
 		return new AABB(p, size);
 	}
