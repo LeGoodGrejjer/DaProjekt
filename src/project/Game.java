@@ -20,7 +20,7 @@ public class Game extends JFrame{
 	        //setSize(600, 600);
 	        setVisible(true);
 	    }
-
+	 // hahahahahahahaha
 	    public static void main(String[] args) {
 	        new Game();
 	    }
