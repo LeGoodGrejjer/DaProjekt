@@ -62,15 +62,13 @@ public class Collisions
 						if(dist < overlap)
 						{
 							Vector2 deltaP = Vector2.delta(p1, p2);
-//							collision.getElement1().position = 
-//									Vector2.add(collision.getElement1().position,
-//											Vector2.multiply(deltaP.normalize(), dist / overlap));
-//							
-//							collision.getElement2().position = 
-//									Vector2.add(collision.getElement2().position,
-//											Vector2.multiply(deltaP.normalize(), -dist / overlap));
-							collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/1000f));
-							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/1000f));
+							collision.getElement1().position.translate(
+											Vector2.multiply(deltaP.normalize(), dist / overlap));
+							
+							collision.getElement2().position.translate(
+											Vector2.multiply(deltaP.normalize(), -dist / overlap));
+							collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/10f));
+							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/10f));
 						}
 					}
 					else if(fixture1 instanceof CircleFixture && fixture2 instanceof PolygonFixture)
@@ -125,6 +123,10 @@ public class Collisions
 					circleObject.addForce(Vector2.multiply(p1p2.leftNormal().normalize(), (circleFixture.getRadius() / dist) * 1f/100f));
 					circleObject.position.translate(Vector2.multiply(p1p2.leftNormal().normalize(), (circleFixture.getRadius() - dist)));
 				}
+			}
+			else
+			{
+				//hitta närmsta hörn och flytta ofrån om det blir fr närgånget, previs som den där poedoCirkeln lite högre upp
 			}
 		}
 	}
