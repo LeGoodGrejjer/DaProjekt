@@ -21,6 +21,7 @@ public class PolygonFixture extends PhysicsFixture
 		{
 			g.drawLine((int)verts[i - 1].x, (int)verts[i - 1].y, (int)verts[i].x, (int)verts[i].y);
 		}
+		
 	}
 	public AABB generateAABB() 
 	{

@@ -71,9 +71,22 @@ public class Collisions
 							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/1000f));
 						}
 					}
+					else if(fixture1 instanceof CircleFixture && fixture2 instanceof PolygonFixture)
+					{
+						circlePolyCollision(collision.getElement1(), collision.getElement2(), fixture1, fixture2);
+					}
+					else if(fixture1 instanceof PolygonFixture && fixture2 instanceof CircleFixture)
+					{
+						circlePolyCollision(collision.getElement2(), collision.getElement1(), fixture2, fixture1);
+					}
 				}
 			}
 		}
+	}
+	private void circlePolyCollision(PhysicsObject circleObject, PhysicsObject polyObject, 
+			PhysicsFixture circleFixture, PhysicsFixture polyFixture)
+	{
+		
 	}
 }
 
