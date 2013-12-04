@@ -11,9 +11,11 @@ public class World
 	private Iterator<PhysicsObject> it;
 	private PhysicsObject current;
 	Collisions AABBCollisions = new Collisions();
+	private float gravity;
 	
-	public World()
+	public World(float gravity)
 	{
+		this.gravity = gravity;
 		physicsObjects = new HashSet<PhysicsObject>();
 	}
 	void update()
@@ -39,7 +41,7 @@ public class World
 		it = physicsObjects.iterator();
 		while(it.hasNext())
 		{
-			it.next().update();
+			it.next().update(gravity);
 			AABBCollisions.removeEndedCollisions();
 			//AABBCollisions.solveCollisions(g);
 		}

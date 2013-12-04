@@ -42,36 +42,46 @@ public class Level extends JPanel implements ActionListener {
 
     public void initGame() {
     	//initializera
-    	world = new World();
+    	world = new World(9f);
     	
     	
     	
     	
     	PhysicsFixture fixture = new CircleFixture(25f);
-    	physObj = new PhysicsObject(fixture, new Vector2(100f, 300f));
+    	physObj = new PhysicsObject(fixture, new Vector2(70f, 100f));
     	physObj.name = "Player";
+    	physObj.isRigid = true;
     	
     	world.addObject(physObj);
     	
-    	fixture = new CircleFixture(40f);
+//    	fixture = new CircleFixture(40f);
+//    	
+//    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(320f, 320f));
+//    	physObj2.name = "Övre";
+//    	
+//    	world.addObject(physObj2);
+//    	
+//    	fixture = new CircleFixture(30f);
+//    	
+//    	physObj2 = new PhysicsObject(fixture, new Vector2(30f, 30f));
+//    	
+//    	physObj2.name = "Nedre";
+//    	world.addObject(physObj2);
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(45, 225), new Vector2(100, 300), new Vector2(75, 350), new Vector2(10, 250)}),
+    			new Vector2(0, 0)));
     	
-    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(320f, 320f));
-    	physObj2.name = "Övre";
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(100, 300), new Vector2(200, 340), new Vector2(200, 400), new Vector2(75, 350)}),
+    			new Vector2(0, 0)));
     	
-    	world.addObject(physObj2);
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(200, 340), new Vector2(330, 350), new Vector2(350, 400), new Vector2(200, 400)}),
+    			new Vector2(0, 0)));
     	
-    	fixture = new CircleFixture(30f);
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(330, 350), new Vector2(420, 320), new Vector2(450, 350), new Vector2(350, 400)}),
+    			new Vector2(0, 0)));
     	
-    	physObj2 = new PhysicsObject(fixture, new Vector2(30f, 30f));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(420, 320), new Vector2(520, 220), new Vector2(575, 230), new Vector2(450, 350)}),
+    			new Vector2(0, 0)));
     	
-    	physObj2.name = "Nedre";
-    	world.addObject(physObj2);
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(-40, -25), new Vector2(40, -5), new Vector2(0, 40), new Vector2(-50, 60)}),
-    			new Vector2(200f, 200f)));
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(50, 60), new Vector2(0, 40), new Vector2(40, 5), new Vector2(60, 25)}),
-    			new Vector2(400f, 400f)));
     	
         timer = new Timer(DELAY, this);
         timer.start();
