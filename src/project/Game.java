@@ -18,6 +18,7 @@ public class Game extends JFrame{
 	        setPreferredSize(new Dimension(600, 600));
 	        pack();
 	        //setSize(600, 600);
+	        //jhsfs
 	        setVisible(true);
 	    }
 
