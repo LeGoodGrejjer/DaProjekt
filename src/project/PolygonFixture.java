@@ -42,8 +42,8 @@ public class PolygonFixture extends PhysicsFixture
 			
 			//System.out.println(normal.y);
 			
-			g.drawLine((int)halfLine.x, (int)halfLine.y,
-					(int)halfLine.x + (int)(normal.x * 15f), (int)halfLine.y + (int)(normal.y * 15f));
+//			g.drawLine((int)halfLine.x, (int)halfLine.y,
+//					(int)halfLine.x + (int)(normal.x * 15f), (int)halfLine.y + (int)(normal.y * 15f));
 		}
 		Vector2 line = Vector2.add(Vector2.add(verts[0], position), Vector2.add(verts[verts.length-1], position));
 		Vector2 halfLine = Vector2.divide(line , 2f);
@@ -52,8 +52,8 @@ public class PolygonFixture extends PhysicsFixture
 		
 		//System.out.println(normal.y);
 		
-		g.drawLine((int)halfLine.x, (int)halfLine.y,
-				(int)halfLine.x + (int)(normal.x * 15f), (int)halfLine.y + (int)(normal.y * 15f));
+//		g.drawLine((int)halfLine.x, (int)halfLine.y,
+//				(int)halfLine.x + (int)(normal.x * 15f), (int)halfLine.y + (int)(normal.y * 15f));
 		
 	}
 	public AABB generateAABB() 

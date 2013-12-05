@@ -100,14 +100,14 @@ public class Collisions
 				second = 0;
 			//COMPAIR POINT
 			Vector2 p1p2 = Vector2.delta(verts[second], verts[first]);
-			g.drawLine((int)verts[first].x, (int)verts[first].y, (int)(verts[second].x), (int)(verts[second].y));
+//			g.drawLine((int)verts[first].x, (int)verts[first].y, (int)(verts[second].x), (int)(verts[second].y));
 			Vector2 p1p0 = Vector2.delta(circleObject.position, Vector2.add(verts[first], polyObject.position));
-			g.drawLine((int)circleObject.position.x, (int)circleObject.position.y, 
-					(int)(verts[first].x + polyObject.position.x), (int)(verts[first].y + polyObject.position.y));
+//			g.drawLine((int)circleObject.position.x, (int)circleObject.position.y, 
+//					(int)(verts[first].x + polyObject.position.x), (int)(verts[first].y + polyObject.position.y));
 			Vector2 vertPos = new Vector2(verts[first].x + polyObject.position.x, verts[first].y + polyObject.position.y);
 			Vector2 Cprojected = Vector2.add(Vector2.project(p1p0, p1p2), vertPos);
-			g.drawLine((int)circleObject.position.x, (int)circleObject.position.y, 
-					(int)(Cprojected.x), (int)(Cprojected.y));
+//			g.drawLine((int)circleObject.position.x, (int)circleObject.position.y, 
+//					(int)(Cprojected.x), (int)(Cprojected.y));
 			
 			float dist = Vector2.distance(Cprojected, circleObject.position);
 			

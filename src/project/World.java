@@ -45,7 +45,7 @@ public class World
 			AABBCollisions.removeEndedCollisions();
 			//AABBCollisions.solveCollisions(g);
 		}
-		AABBCollisions.debugDraw();
+		//AABBCollisions.debugDraw();
 	}
 	void addObject(PhysicsObject obj)
 	{

@@ -50,7 +50,7 @@ public class AABB
 	}
 	public void debugDraw(Graphics g)
 	{
-		g.drawRect((int)position.x - (int)size.x / 2, (int)position.y - (int)size.y / 2, (int)size.x, (int)size.y);
+		//g.drawRect((int)position.x - (int)size.x / 2, (int)position.y - (int)size.y / 2, (int)size.x, (int)size.y);
 	}
 	public AABB combineAABB()
 	{
