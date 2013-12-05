@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -35,8 +36,9 @@ public class Level extends JPanel implements ActionListener {
     private static Graphics2D g2d;
     private static Point startPoint = null;
     private static Point endPoint = null;
-    private static Point lastPoint = null;
+    private static Point lastPoint = new Point(0, 0);
     private static boolean ritarBoolean = false;
+    private static boolean isDrawing = false;
     
     PhysicsObject physObj;
     static Vector2 translation = Vector2.zero();
@@ -57,7 +59,10 @@ public class Level extends JPanel implements ActionListener {
     	//initializera
     	world = new World();
     	
-    	addMouseMotionListener(new MyMouseListener());
+    	MyMouseListener musse = new MyMouseListener();
+    	
+    	addMouseMotionListener(musse);
+    	addMouseListener(musse);
     	
     	PhysicsFixture fixture = new CircleFixture(25f);
     	physObj = new PhysicsObject(fixture, new Vector2(70f, 100f));
@@ -257,8 +262,12 @@ public class Level extends JPanel implements ActionListener {
 			xMax = startPoint.x;
 			yMin = startPoint.y;
 			yMax = startPoint.y;
+			isDrawing = true;
+
 			Ellipse2D.Double circle = new Ellipse2D.Double((int)e.getPoint().getX(), (int)e.getPoint().getY(), 20, 20);
 			g2d.fill(circle);
+			repaint(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+			lastPoint = e.getPoint();
 			
 		}
 
@@ -278,14 +287,15 @@ public class Level extends JPanel implements ActionListener {
 			g2d.fill(circle);
 			repaint(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
 			
-			Vector2 temp1 = new Vector2(lastPoint.x, lastPoint.y);
-			Vector2 temp2 = new Vector2(e.getX(), e.getY());
-			float dist = Vector2.dot(temp1, temp2);
-			if(dist > 100){
-				for(int n = (int)dist; dist > 0; dist-=10){
-					Ellipse2D.Double circle2 = new Ellipse2D.Double((int)e.getPoint().getX(), (int)e.getPoint().getY(), 20, 20);
+			double hyp = Math.sqrt(Math.pow(lastPoint.x-e.getX(), 2)+Math.pow(lastPoint.y-e.getY(), 2));
+			
+			System.out.println(hyp);
+			if(hyp >= 5 && (lastPoint.x != 0 & lastPoint.y != 0) && isDrawing){
+				for(int n = 0; n<hyp/5; n++){
+					Ellipse2D.Double circle2 = new Ellipse2D.Double(lastPoint.x-5*(lastPoint.x-e.getX())/hyp*(n+1), lastPoint.y-5*(lastPoint.y-e.getY())/hyp*(n+1), 20, 20);
 					g2d.fill(circle2);
 					repaint(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+					System.out.println("lagger till");
 				}
 			}
 			
@@ -295,6 +305,8 @@ public class Level extends JPanel implements ActionListener {
 
 		public void mouseReleased(MouseEvent e)
 		{
+			isDrawing = false;
+			/*
 			//  Custom code to paint the Rectangle on the BufferedImage
 			int x = Math.min(startPoint.x, endPoint.x);
 			int y = Math.min(startPoint.y, endPoint.y);
@@ -313,6 +325,7 @@ public class Level extends JPanel implements ActionListener {
 			startPoint = null;
 			//ritarBoolean = false;
 //			repaint();
+ */
 		}
 	}
 }
