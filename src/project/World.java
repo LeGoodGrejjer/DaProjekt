@@ -30,7 +30,7 @@ public class World
 				if(prev.equals(current))
 					continue;
 
-				if(current.getAABB().colliding(prev.getAABB()))
+				if(current.isRigid && current.getAABB().colliding(prev.getAABB()))
 				{
 					AABBCollisions.add(new Pair<PhysicsObject>(current, prev));
 					i++;

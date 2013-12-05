@@ -42,20 +42,22 @@ public class Level extends JPanel implements ActionListener {
 
     public void initGame() {
     	//initializera
-    	world = new World(9f);
+    	world = new World(2f);
     	
     	
     	
     	
     	PhysicsFixture fixture = new CircleFixture(25f);
-    	physObj = new PhysicsObject(fixture, new Vector2(70f, 100f));
+    	physObj = new PhysicsObject(fixture, new Vector2(200f, 200f));
     	physObj.name = "Player";
     	physObj.isRigid = true;
+    	physObj.bounce = 0.75f;
     	
     	world.addObject(physObj);
     	
     	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(500f, 100f));
     	physObj2.name = "Player2";
+    	physObj2.bounce = 0.75f;
     	
     	physObj2.isRigid = true;
     	
@@ -73,20 +75,50 @@ public class Level extends JPanel implements ActionListener {
 //    	
 //    	physObj2.name = "Nedre";
 //    	world.addObject(physObj2);
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(45, 225), new Vector2(100, 300), new Vector2(75, 350), new Vector2(10, 250)}),
+    	
+    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(45, 225), new Vector2(100, 300), new Vector2(75, 350), new Vector2(10, 250)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(100, 300), new Vector2(200, 340), new Vector2(200, 400), new Vector2(75, 350)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(200, 340), new Vector2(330, 350), new Vector2(350, 400), new Vector2(200, 400)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(330, 350), new Vector2(420, 320), new Vector2(450, 350), new Vector2(350, 400)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(420, 320), new Vector2(520, 220), new Vector2(575, 230), new Vector2(450, 350)}),
+//    			new Vector2(0, 0)));
+//    	
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(500, 250), new Vector2(450, 100)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(450, 100), new Vector2(233, 45)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(233, 45), new Vector2(90, 200)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(90, 200), new Vector2(190, 450)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(190, 450), new Vector2(350, 475)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(350, 475), new Vector2(500, 250)}),
     			new Vector2(0, 0)));
     	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(100, 300), new Vector2(200, 340), new Vector2(200, 400), new Vector2(75, 350)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(290, 220), new Vector2(375, 210)}),
     			new Vector2(0, 0)));
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(200, 340), new Vector2(330, 350), new Vector2(350, 400), new Vector2(200, 400)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(375, 210), new Vector2(380, 275)}),
     			new Vector2(0, 0)));
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(330, 350), new Vector2(420, 320), new Vector2(450, 350), new Vector2(350, 400)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(380, 275), new Vector2(360, 350)}),
     			new Vector2(0, 0)));
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(420, 320), new Vector2(520, 220), new Vector2(575, 230), new Vector2(450, 350)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(360, 350), new Vector2(290, 315)}),
     			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(290, 315), new Vector2(250, 250)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(250, 250), new Vector2(290, 220)}),
+    			new Vector2(0, 0)));
+//    			new Vector2(380, 275), new Vector2(360, 350), new Vector2(290, 315), new Vector2(250, 250)}),
+//    			new Vector2(0, 0)));
     	
     	
         timer = new Timer(DELAY, this);

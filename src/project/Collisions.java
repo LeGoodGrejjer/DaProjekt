@@ -62,13 +62,18 @@ public class Collisions
 						if(dist < overlap)
 						{
 							Vector2 deltaP = Vector2.delta(p1, p2);
+							Vector2 normalN = Vector2.multiply(deltaP.normalize(), (collision.getElement1().bounce + collision.getElement2().bounce) / 2f);
+							Vector2 oldVel = Vector2.delta(collision.getElement1().getVelocity(), collision.getElement2().getVelocity());
+							Vector2 newVel = Vector2.delta(oldVel, Vector2.multiply(normalN, (2f*Vector2.dot(oldVel, normalN))));
+							collision.getElement1().setVelocity(newVel);
+							collision.getElement2().setVelocity(Vector2.multiply(newVel, -1f));
 							collision.getElement1().position.translate(
 											Vector2.multiply(deltaP.normalize(), dist / overlap));
 							
 							collision.getElement2().position.translate(
 											Vector2.multiply(deltaP.normalize(), -dist / overlap));
-							collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/10f));
-							collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/10f));
+							//collision.getElement1().addForce(Vector2.multiply(deltaP.normalize(), (overlap / dist) * 1f/10f));
+							//collision.getElement2().addForce(Vector2.multiply(deltaP.normalize(), -(overlap / dist) * 1f/10f));
 						}
 					}
 					else if(fixture1 instanceof CircleFixture && fixture2 instanceof PolygonFixture)
@@ -120,13 +125,32 @@ public class Collisions
 				System.out.println(distMP);
 				if(dist < circleFixture.getRadius())
 				{
-					circleObject.addForce(Vector2.multiply(p1p2.leftNormal().normalize(), (circleFixture.getRadius() / dist) * 1f/100f));
+					//circleObject.addForce(Vector2.multiply(p1p2.leftNormal().normalize(), (circleFixture.getRadius() / dist) * 1f/100f));
+					//Vector2 newVel = circleObject.getVelocity();
+					//r = d-2(d dot n)n
+					//if(circleObject.getVelocity())
+					Vector2 normalN = Vector2.multiply(p1p2.leftNormal().normalize(), (circleObject.bounce + polyObject.bounce) / 2f);
+					Vector2 newVel = Vector2.delta(circleObject.getVelocity(), Vector2.multiply(normalN, (2f*Vector2.dot(circleObject.getVelocity(), normalN))));
+					circleObject.setVelocity(newVel);
 					circleObject.position.translate(Vector2.multiply(p1p2.leftNormal().normalize(), (circleFixture.getRadius() - dist)));
 				}
+				break;
 			}
 			else
 			{
-				//hitta närmsta hörn och flytta ofrån om det blir fr närgånget, previs som den där poedoCirkeln lite högre upp
+				Vector2 p1 = Vector2.add(circleObject.position, circleFixture.getLocalPosition());
+				Vector2 p2 = Vector2.add(verts[first], polyObject.position);
+				
+				dist = Vector2.distance(p1, p2);
+				if(dist < circleFixture.getRadius())
+				{
+					Vector2 deltaP = Vector2.delta(p1, p2);
+					Vector2 normalN = Vector2.multiply(deltaP.normalize(), (circleObject.bounce + polyObject.bounce) / 2f);
+					Vector2 newVel = Vector2.delta(circleObject.getVelocity(), Vector2.multiply(normalN, (2f*Vector2.dot(circleObject.getVelocity(), normalN))));
+					circleObject.setVelocity(newVel);
+					circleObject.position.translate(Vector2.multiply(deltaP.normalize(), dist / circleFixture.getRadius()));
+					break;
+				}
 			}
 		}
 	}
