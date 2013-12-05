@@ -306,6 +306,8 @@ public class Level extends JPanel implements ActionListener {
 		public void mouseReleased(MouseEvent e)
 		{
 			isDrawing = false;
+			
+			PolygonKul polle = new PolygonKul(image);
 			/*
 			//  Custom code to paint the Rectangle on the BufferedImage
 			int x = Math.min(startPoint.x, endPoint.x);
