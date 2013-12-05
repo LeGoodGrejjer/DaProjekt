@@ -17,8 +17,8 @@ public class Game extends JFrame{
 	
 	 public Game() {
 		
-		 
 		 	add(level);
+		 
 
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        
@@ -28,27 +28,6 @@ public class Game extends JFrame{
 	        setResizable(false);
 	        setPreferredSize(new Dimension(600, 600));
 	        pack();
-	        
-	        
-	        level.addMouseMotionListener(new MouseMotionListener() {
-				
-				@Override
-				public void mouseMoved(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-				}
-				
-				@Override
-				public void mouseDragged(MouseEvent arg0) {
-					// TODO Auto-generated method stub
-					System.out.println("("+arg0.getY()+", "+arg0.getX()+")");
-					
-					JLabel lab = new JLabel("O");
-					lab.setBounds(arg0.getX(), arg0.getY(), 5, 5);
-					lab.setBackground(Color.red);
-					level.add(lab);
-					lab.setVisible(true);
-				}
-			});
 	      
 	        
 	        //setSize(600, 600);

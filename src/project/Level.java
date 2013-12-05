@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +14,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.event.MouseInputAdapter;
 
 
 public class Level extends JPanel implements ActionListener {
@@ -26,6 +31,12 @@ public class Level extends JPanel implements ActionListener {
     
     private boolean inGame = true;
     private World world;
+    private BufferedImage image;
+    private static Graphics2D g2d;
+    private static Point startPoint = null;
+    private static Point endPoint = null;
+    private static Point lastPoint = null;
+    private static boolean ritarBoolean = false;
     
     PhysicsObject physObj;
     static Vector2 translation = Vector2.zero();
@@ -46,8 +57,7 @@ public class Level extends JPanel implements ActionListener {
     	//initializera
     	world = new World();
     	
-    	DrawOnImage drawwe = new DrawOnImage();
-    	
+    	addMouseMotionListener(new MyMouseListener());
     	
     	PhysicsFixture fixture = new CircleFixture(25f);
     	physObj = new PhysicsObject(fixture, new Vector2(70f, 100f));
@@ -103,12 +113,37 @@ public class Level extends JPanel implements ActionListener {
 
             world.debugDraw(g);
 
-            Toolkit.getDefaultToolkit().sync();
-            g.dispose();
+            
+            
 
         } else {
             //gameOver(g);
         }
+        
+        if(ritarBoolean){
+        	
+        	if (image == null)
+    		{
+        		System.out.println("asdsa");
+    			createEmptyImage();
+    		}
+
+    		g.drawImage(image, 0, 0, null);
+
+    		//  Paint the Rectangle as the mouse is being dragged
+
+    		if (startPoint != null && endPoint != null)
+    		{
+    			int x = Math.min(startPoint.x, endPoint.x);
+    			int y = Math.min(startPoint.y, endPoint.y);
+    			int width = Math.abs(startPoint.x - endPoint.x);
+    			int height = Math.abs(startPoint.y - endPoint.y);
+    			//g.drawRect(x, y, width, height);
+    		}
+        }
+        Toolkit.getDefaultToolkit().sync();
+        g.dispose();
+        //g2d.dispose();
     }
 
 
@@ -184,4 +219,100 @@ public class Level extends JPanel implements ActionListener {
             	
         }
     }
+
+	private void createEmptyImage()
+	{
+		image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+		g2d = (Graphics2D)image.getGraphics();
+		g2d.setBackground(Color.white);
+		g2d.setColor(Color.BLACK);
+		g2d.drawString("Adgfgfhfd a rectangle by doing mouse press, drag and release!", 40, 15);
+	}
+
+	public void addRectangle(int x, int y, int width, int height, Color color)
+	{
+		g2d.setColor( color );
+		g2d.drawRect(x, y, width, height);
+		//repaint();
+	}
+
+	public void clear()
+	{
+		createEmptyImage();
+		//repaint();
+	}
+
+	class MyMouseListener extends MouseInputAdapter
+	{
+		private int xMin;
+		private int xMax;
+		private int yMin;
+		private int yMax;
+
+		public void mousePressed(MouseEvent e)
+		{
+			startPoint = e.getPoint();
+			endPoint = startPoint;
+			xMin = startPoint.x;
+			xMax = startPoint.x;
+			yMin = startPoint.y;
+			yMax = startPoint.y;
+			Ellipse2D.Double circle = new Ellipse2D.Double((int)e.getPoint().getX(), (int)e.getPoint().getY(), 20, 20);
+			g2d.fill(circle);
+			
+		}
+
+		public void mouseDragged(MouseEvent e)
+		{
+			ritarBoolean = true;
+			//  Repaint only the area affected by the mouse dragging
+			
+			endPoint = e.getPoint();
+			xMin = Math.min(xMin, endPoint.x);
+			xMax = Math.max(xMax, endPoint.x);
+			yMin = Math.min(yMin, endPoint.y);
+			yMax = Math.max(yMax, endPoint.y);
+			//repaint(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+			
+			Ellipse2D.Double circle = new Ellipse2D.Double((int)e.getPoint().getX(), (int)e.getPoint().getY(), 20, 20);
+			g2d.fill(circle);
+			repaint(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+			
+			Vector2 temp1 = new Vector2(lastPoint.x, lastPoint.y);
+			Vector2 temp2 = new Vector2(e.getX(), e.getY());
+			float dist = Vector2.dot(temp1, temp2);
+			if(dist > 100){
+				for(int n = (int)dist; dist > 0; dist-=10){
+					Ellipse2D.Double circle2 = new Ellipse2D.Double((int)e.getPoint().getX(), (int)e.getPoint().getY(), 20, 20);
+					g2d.fill(circle2);
+					repaint(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+				}
+			}
+			
+			lastPoint = e.getPoint();
+			
+		}
+
+		public void mouseReleased(MouseEvent e)
+		{
+			//  Custom code to paint the Rectangle on the BufferedImage
+			int x = Math.min(startPoint.x, endPoint.x);
+			int y = Math.min(startPoint.y, endPoint.y);
+			int width = Math.abs(startPoint.x - endPoint.x);
+			int height = Math.abs(startPoint.y - endPoint.y);
+
+			if (width != 0 || height != 0)
+			{
+//				g2d.setColor( e.getComponent().getForeground() );
+//				g2d.drawRect(x, y, width, height);
+				addRectangle(x, y, width, height, Color.black);
+			}
+			System.out.println(x);
+			//g2d.drawRect(x, y, 40, 40);
+			//image. = (BufferedImage)g2d.;
+			startPoint = null;
+			//ritarBoolean = false;
+//			repaint();
+		}
+	}
 }
