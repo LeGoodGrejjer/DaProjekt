@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -40,41 +42,60 @@ public class Level extends JPanel implements ActionListener {
         initGame();
     }
 
-
     public void initGame() {
     	//initializera
     	world = new World();
     	
-    	
+    	DrawOnImage drawwe = new DrawOnImage();
     	
     	
     	PhysicsFixture fixture = new CircleFixture(25f);
-    	physObj = new PhysicsObject(fixture, new Vector2(100f, 300f));
+    	physObj = new PhysicsObject(fixture, new Vector2(70f, 100f));
     	physObj.name = "Player";
+    	physObj.isRigid = true;
     	
     	world.addObject(physObj);
     	
-    	fixture = new CircleFixture(40f);
+    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(500f, 100f));
+    	physObj2.name = "Player2";
     	
-    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(320f, 320f));
-    	physObj2.name = "�vre";
+    	physObj2.isRigid = true;
     	
     	world.addObject(physObj2);
+//    	fixture = new CircleFixture(40f);
+//    	
+//    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(320f, 320f));
+//    	physObj2.name = "�vre";
+//    	
+//    	world.addObject(physObj2);
+//    	
+//    	fixture = new CircleFixture(30f);
+//    	
+//    	physObj2 = new PhysicsObject(fixture, new Vector2(30f, 30f));
+//    	
+//    	physObj2.name = "Nedre";
+//    	world.addObject(physObj2);
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(45, 225), new Vector2(100, 300), new Vector2(75, 350), new Vector2(10, 250)}),
+    			new Vector2(0, 0)));
     	
-    	fixture = new CircleFixture(30f);
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(100, 300), new Vector2(200, 340), new Vector2(200, 400), new Vector2(75, 350)}),
+    			new Vector2(0, 0)));
     	
-    	physObj2 = new PhysicsObject(fixture, new Vector2(30f, 30f));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(200, 340), new Vector2(330, 350), new Vector2(350, 400), new Vector2(200, 400)}),
+    			new Vector2(0, 0)));
     	
-    	physObj2.name = "Nedre";
-    	world.addObject(physObj2);
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(330, 350), new Vector2(420, 320), new Vector2(450, 350), new Vector2(350, 400)}),
+    			new Vector2(0, 0)));
     	
-    	world.addObject(new PhysicsObject(new CircleFixture(50f), new Vector2(200f, 200f)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(420, 320), new Vector2(520, 220), new Vector2(575, 230), new Vector2(450, 350)}),
+    			new Vector2(0, 0)));
+    	
     	
         timer = new Timer(DELAY, this);
         timer.start();
     }
 
-
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 

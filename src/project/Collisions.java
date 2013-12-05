@@ -36,7 +36,7 @@ public class Collisions
 	{
 		for(Pair<PhysicsObject> pair : collisions)
 		{
-			System.out.println(pair.getElement1().name + " collidiong with " + pair.getElement2().name);
+			//System.out.println(pair.getElement1().name + " collidiong with " + pair.getElement2().name);
 		}
 		//System.out.print('\n');
 	}
