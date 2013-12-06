@@ -231,7 +231,7 @@ public class Level extends JPanel implements ActionListener {
 		g2d = (Graphics2D)image.getGraphics();
 		g2d.setBackground(Color.white);
 		g2d.setColor(Color.BLACK);
-		g2d.drawString("Adgfgfhfd a rectangle by doing mouse press, drag and release!", 40, 15);
+		//g2d.drawString("Adgfgfhfd a rectangle by doing mouse press, drag and release!", 40, 15);
 	}
 
 	public void addRectangle(int x, int y, int width, int height, Color color)
@@ -307,7 +307,8 @@ public class Level extends JPanel implements ActionListener {
 		{
 			isDrawing = false;
 			
-			PolygonKul polle = new PolygonKul(image);
+			PolygonKul polle = new PolygonKul(image, getGraphics());
+			polle.loopImage(g2d);
 			/*
 			//  Custom code to paint the Rectangle on the BufferedImage
 			int x = Math.min(startPoint.x, endPoint.x);
