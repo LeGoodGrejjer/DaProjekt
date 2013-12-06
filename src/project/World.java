@@ -11,9 +11,11 @@ public class World
 	private Iterator<PhysicsObject> it;
 	private PhysicsObject current;
 	Collisions AABBCollisions = new Collisions();
+	private float gravity;
 	
-	public World()
+	public World(float gravity)
 	{
+		this.gravity = gravity;
 		physicsObjects = new HashSet<PhysicsObject>();
 	}
 	void update()
@@ -28,22 +30,22 @@ public class World
 				if(prev.equals(current))
 					continue;
 
-				if(current.getAABB().colliding(prev.getAABB()))
+				if(current.isRigid && current.getAABB().colliding(prev.getAABB()))
 				{
 					AABBCollisions.add(new Pair<PhysicsObject>(current, prev));
 					i++;
 				}
 			}
 		}
-		//System.out.println(i + " collisions.");
+		System.out.println(i + " collisions.");
 		it = physicsObjects.iterator();
 		while(it.hasNext())
 		{
-			it.next().update();
+			it.next().update(gravity);
 			AABBCollisions.removeEndedCollisions();
-			AABBCollisions.solveCollisions();
+			//AABBCollisions.solveCollisions(g);
 		}
-		AABBCollisions.debugDraw();
+		//AABBCollisions.debugDraw();
 	}
 	void addObject(PhysicsObject obj)
 	{
@@ -55,5 +57,6 @@ public class World
 		{
 			physObj.debugDraw(g);
 		}
+		AABBCollisions.solveCollisions(g);
 	}
 }

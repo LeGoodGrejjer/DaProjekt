@@ -6,8 +6,10 @@ import java.util.Set;
 
 public class PhysicsObject 
 {
-	boolean isRigid = true;
-	float drag = 0.995f;
+	boolean isRigid = false;
+	float bounce = 1f;
+	//float drag = 0.9999f;
+	float drag = 1f;
 	Vector2 position;
 	private Vector2 velocity;
 	private AABB aabb;
@@ -25,10 +27,15 @@ public class PhysicsObject
 		this.position = position;
 		velocity = Vector2.zero();
 	}
-	void update()
+	void update(float gravity)
 	{
+		if(isRigid)
+			addForce(new Vector2(0, gravity * 1f/10f));
 		aabb.setPosition(position);
-		position = Vector2.add(position, velocity);
+		if(isRigid)
+			position = Vector2.add(position, Vector2.add(velocity, new Vector2(0, gravity * 1f/10f)));
+		else
+			position = Vector2.add(position, velocity);
 		velocity = Vector2.multiply(velocity, drag);
 	}
 	void debugDraw(Graphics g)
@@ -49,4 +56,14 @@ public class PhysicsObject
 		if(isRigid)
 		velocity = Vector2.add(velocity, force);
 	}
+	public void setVelocity(Vector2 vel)
+	{
+		velocity = vel;
+	}
+	public Vector2 getVelocity()
+	{
+		return velocity;
+	}
+	
+	
 }

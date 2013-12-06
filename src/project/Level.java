@@ -13,10 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -30,7 +29,7 @@ public class Level extends JPanel implements ActionListener {
 
     private Timer timer;
     
-    private boolean inGame = true;
+    private boolean inGame = false;
     private World world;
     private BufferedImage image;
     private static Graphics2D g2d;
@@ -57,26 +56,35 @@ public class Level extends JPanel implements ActionListener {
 
     public void initGame() {
     	//initializera
-    	world = new World();
+    	world = new World(0.5f);
     	
-    	MyMouseListener musse = new MyMouseListener();
     	
-    	addMouseMotionListener(musse);
-    	addMouseListener(musse);
+    	
     	
     	PhysicsFixture fixture = new CircleFixture(25f);
-    	physObj = new PhysicsObject(fixture, new Vector2(70f, 100f));
+    	physObj = new PhysicsObject(fixture, new Vector2(100f, 100f));
     	physObj.name = "Player";
     	physObj.isRigid = true;
+    	physObj.bounce = 0.6f;
     	
     	world.addObject(physObj);
     	
-    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(500f, 100f));
-    	physObj2.name = "Player2";
+//    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(500f, 100f));
+//    	physObj2.name = "Player2";
+//    	physObj2.bounce = 0.75f;
+//    	
+//    	physObj2.isRigid = true;
+//    	
+//    	world.addObject(physObj2);
     	
-    	physObj2.isRigid = true;
+    	MyMouseListener musse = new MyMouseListener();
+        
+        addMouseMotionListener(musse);
+        addMouseListener(musse);
+        
+        
+        
     	
-    	world.addObject(physObj2);
 //    	fixture = new CircleFixture(40f);
 //    	
 //    	PhysicsObject physObj2 = new PhysicsObject(fixture, new Vector2(320f, 320f));
@@ -90,20 +98,54 @@ public class Level extends JPanel implements ActionListener {
 //    	
 //    	physObj2.name = "Nedre";
 //    	world.addObject(physObj2);
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(45, 225), new Vector2(100, 300), new Vector2(75, 350), new Vector2(10, 250)}),
-    			new Vector2(0, 0)));
     	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(100, 300), new Vector2(200, 340), new Vector2(200, 400), new Vector2(75, 350)}),
-    			new Vector2(0, 0)));
     	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(200, 340), new Vector2(330, 350), new Vector2(350, 400), new Vector2(200, 400)}),
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(45, 225), new Vector2(100, 300), new Vector2(75, 350), new Vector2(10, 250)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(100, 300), new Vector2(200, 340), new Vector2(200, 400), new Vector2(75, 350)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(200, 340), new Vector2(330, 350), new Vector2(350, 400), new Vector2(200, 400)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(330, 350), new Vector2(420, 320), new Vector2(450, 350), new Vector2(350, 400)}),
+//    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(420, 320), new Vector2(520, 220), new Vector2(575, 230), new Vector2(450, 350)}),
+//    			new Vector2(0, 0)));
+//    	
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(386, 501), new Vector2(404, 501)}),
     			new Vector2(0, 0)));
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(330, 350), new Vector2(420, 320), new Vector2(450, 350), new Vector2(350, 400)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(404, 501), new Vector2(404, 564)}),
     			new Vector2(0, 0)));
-    	
-    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(420, 320), new Vector2(520, 220), new Vector2(575, 230), new Vector2(450, 350)}),
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(404, 564), new Vector2(548, 564)}),
     			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(548, 564), new Vector2(548, 501)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(548, 501), new Vector2(567, 501)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(567, 501), new Vector2(567, 584)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(567, 584), new Vector2(386, 584)}),
+    			new Vector2(0, 0)));
+    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(386, 584), new Vector2(386, 501)}),
+    			new Vector2(0, 0)));
+//    	
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(290, 220), new Vector2(375, 210)}),
+//    			new Vector2(0, 0)));
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(375, 210), new Vector2(380, 275)}),
+//    			new Vector2(0, 0)));
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(380, 275), new Vector2(360, 350)}),
+//    			new Vector2(0, 0)));
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(360, 350), new Vector2(290, 315)}),
+//    			new Vector2(0, 0)));
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(290, 315), new Vector2(250, 250)}),
+//    			new Vector2(0, 0)));
+//    	world.addObject(new PhysicsObject(new PolygonFixture(new Vector2[]{new Vector2(250, 250), new Vector2(290, 220)}),
+//    			new Vector2(0, 0)));
+//    			new Vector2(380, 275), new Vector2(360, 350), new Vector2(290, 315), new Vector2(250, 250)}),
+//    			new Vector2(0, 0)));
     	
     	
         timer = new Timer(DELAY, this);
@@ -114,41 +156,31 @@ public class Level extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (inGame) {
-
-            world.debugDraw(g);
-
-            
-            
-
-        } else {
-            //gameOver(g);
-        }
+        world.debugDraw(g);
         
         if(ritarBoolean){
-        	
-        	if (image == null)
-    		{
-        		System.out.println("asdsa");
-    			createEmptyImage();
-    		}
+                
+                if (image == null)
+                    {
+                        System.out.println("asdsa");
+                            createEmptyImage();
+                    }
 
-    		g.drawImage(image, 0, 0, null);
+                    g.drawImage(image, 0, 0, null);
 
-    		//  Paint the Rectangle as the mouse is being dragged
+                    //  Paint the Rectangle as the mouse is being dragged
 
-    		if (startPoint != null && endPoint != null)
-    		{
-    			int x = Math.min(startPoint.x, endPoint.x);
-    			int y = Math.min(startPoint.y, endPoint.y);
-    			int width = Math.abs(startPoint.x - endPoint.x);
-    			int height = Math.abs(startPoint.y - endPoint.y);
-    			//g.drawRect(x, y, width, height);
-    		}
+                    if (startPoint != null && endPoint != null)
+                    {
+                            int x = Math.min(startPoint.x, endPoint.x);
+                            int y = Math.min(startPoint.y, endPoint.y);
+                            int width = Math.abs(startPoint.x - endPoint.x);
+                            int height = Math.abs(startPoint.y - endPoint.y);
+                            //g.drawRect(x, y, width, height);
+                    }
         }
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
-        //g2d.dispose();
     }
 
 
@@ -224,30 +256,17 @@ public class Level extends JPanel implements ActionListener {
             	
         }
     }
-
-	private void createEmptyImage()
-	{
-		image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-		g2d = (Graphics2D)image.getGraphics();
-		g2d.setBackground(Color.white);
-		g2d.setColor(Color.BLACK);
-		//g2d.drawString("Adgfgfhfd a rectangle by doing mouse press, drag and release!", 40, 15);
-	}
-
-	public void addRectangle(int x, int y, int width, int height, Color color)
-	{
-		g2d.setColor( color );
-		g2d.drawRect(x, y, width, height);
-		//repaint();
-	}
-
-	public void clear()
-	{
-		createEmptyImage();
-		//repaint();
-	}
-
-	class MyMouseListener extends MouseInputAdapter
+    
+    private void createEmptyImage()
+    {
+            image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+            g2d = (Graphics2D)image.getGraphics();
+            g2d.setBackground(Color.white);
+            g2d.setColor(Color.BLACK);
+            //g2d.drawString("Adgfgfhfd a rectangle by doing mouse press, drag and release!", 40, 15);
+    }
+    
+    class MyMouseListener extends MouseInputAdapter
 	{
 		private int xMin;
 		private int xMax;
@@ -308,7 +327,22 @@ public class Level extends JPanel implements ActionListener {
 			isDrawing = false;
 			
 			PolygonKul polle = new PolygonKul(image, getGraphics());
-			polle.loopImage(g2d);
+			List<Vector2> points = polle.loopImage(g2d);
+			
+			for(int i = points.size() - 1; i >= 0; i--)
+			{
+				int first = i + 1;
+				if(first == points.size())
+					first = 0;
+				int second = i;
+				
+				world.addObject(new PhysicsObject(new PolygonFixture(
+						new Vector2[]{points.get(first), points.get(second)}), new Vector2(0, 0)));
+			}
+			
+			inGame = true;
+			
+			
 			/*
 			//  Custom code to paint the Rectangle on the BufferedImage
 			int x = Math.min(startPoint.x, endPoint.x);

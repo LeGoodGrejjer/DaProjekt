@@ -25,7 +25,7 @@ public class PolygonKul {
 	}
 	        
 	
-	public void loopImage(Graphics2D g){
+	public List<Vector2> loopImage(Graphics2D g){
 		
 		List<Vector2> paintPointsArrayList = new ArrayList<Vector2>();
 		int startcol = -1;
@@ -193,13 +193,12 @@ public class PolygonKul {
 					float dot = Vector2.dot(vec2till3, vec2till1);
 					
 					float deltaAngle = (float)Math.acos(dot);
-					System.out.println(deltaAngle);
 					if(deltaAngle > Math.PI)
 						deltaAngle -= Math.PI;
 					
 					
-					if(deltaAngle > Math.toRadians(163f)){
-						System.out.println("deleted");
+					if(deltaAngle > Math.toRadians(172f)){
+						
 						tarBort = true;
 						paintPointsArrayList.remove(tempVec2);
 						break;
@@ -209,11 +208,11 @@ public class PolygonKul {
 		}
 		
 		for(Vector2 vic : paintPointsArrayList){
-			g.setColor(Color.red);
+			/*g.setColor(Color.red);
         	g.drawRect((int)vic.x, (int)vic.y, 1, 1);
-        	
+        	*/
 		}
-		
+		return paintPointsArrayList;
 	}
 	
 	public void printPixelARGB(int pixel) {
